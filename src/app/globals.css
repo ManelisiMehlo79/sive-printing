@@ -1,0 +1,203 @@
+/*
+ * Tailwind v3 (@tailwind directives + tailwind.config.ts) cannot process
+ * `tw-animate-css` / `shadcn/tailwind.css` — they rely on Tailwind v4 `@theme`
+ * / `@utility`. Import them only after migrating to @tailwindcss/postcss v4.
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(4.25rem + 1.25rem);
+    @apply font-sans;
+    background-color: #000000;
+  }
+
+  @media (min-width: 640px) {
+    html {
+      scroll-padding-top: calc(4.5rem + 1.25rem);
+    }
+  }
+
+  body {
+    @apply antialiased;
+    background-color: transparent;
+    color: var(--foreground);
+  }
+  .theme {
+    --font-heading: var(--font-sans);
+    --font-sans: var(--font-sans);
+  }
+  :root {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+    --primary: oklch(0.205 0 0);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --destructive-foreground: oklch(0.985 0 0);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: oklch(0.708 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --radius: 0.625rem;
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: oklch(0.708 0 0);
+  }
+  .dark {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.922 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --destructive-foreground: oklch(0.985 0 0);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.556 0 0);
+  }
+  * {
+    border-color: var(--border);
+  }
+}
+
+@keyframes contact-slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-44px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes contact-slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(44px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.contact-card-enter {
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: contact-slide-in-left 1500ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+.contact-form-enter {
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: contact-slide-in-right 1700ms cubic-bezier(0.22, 0.61, 0.36, 1) 420ms forwards;
+}
+
+.contact-card-enter-1 {
+  animation-delay: 0ms;
+}
+
+.contact-card-enter-2 {
+  animation-delay: 320ms;
+}
+
+.contact-card-enter-3 {
+  animation-delay: 640ms;
+}
+
+/**
+ * Hero “Our Prices” — outer pill ring: slow smooth “breathing” glow (CSS so
+ * it always runs). Feels alive without a fast staccato pulse.
+ */
+.prices-btn-outer-ring {
+  box-sizing: border-box;
+  border: 3px solid rgb(107 82 41);
+  animation: prices-btn-ring-alert 4.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  will-change: box-shadow, border-color, filter;
+}
+
+@keyframes prices-btn-ring-alert {
+  0%,
+  100% {
+    border-color: rgb(107 82 41);
+    box-shadow:
+      0 0 0 0 rgb(130 102 51 / 0.4),
+      0 0 14px rgb(130 102 51 / 0.32);
+    filter: brightness(1);
+  }
+  33% {
+    border-color: rgb(118 93 46);
+    box-shadow:
+      0 0 0 3px rgb(130 102 51 / 0.22),
+      0 0 20px rgb(130 102 51 / 0.38);
+    filter: brightness(1.04);
+  }
+  50% {
+    border-color: rgb(188 154 88);
+    box-shadow:
+      0 0 0 7px rgb(130 102 51 / 0.18),
+      0 0 32px rgb(252 211 77 / 0.32);
+    filter: brightness(1.09);
+  }
+  66% {
+    border-color: rgb(122 96 50);
+    box-shadow:
+      0 0 0 4px rgb(130 102 51 / 0.2),
+      0 0 22px rgb(130 102 51 / 0.36);
+    filter: brightness(1.03);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prices-btn-outer-ring {
+    animation: none;
+    border-color: rgb(107 82 41);
+    box-shadow: 0 0 10px rgb(130 102 51 / 0.3);
+    filter: none;
+  }
+}

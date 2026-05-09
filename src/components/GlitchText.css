@@ -1,0 +1,171 @@
+.glitch {
+  color: #fff;
+  font-size: clamp(2rem, 10vw, 8rem);
+  white-space: nowrap;
+  font-weight: 900;
+  position: relative;
+  margin: 0 auto;
+  user-select: none;
+  cursor: pointer;
+}
+
+.glitch::after,
+.glitch::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  color: #fff;
+  background-color: #120f17;
+  clip-path: inset(0 0 0 0);
+  pointer-events: none;
+  white-space: inherit;
+}
+
+.glitch:not(.enable-on-hover)::after {
+  text-shadow: var(--after-shadow, -10px 0 red);
+  transform: translateX(4px);
+  animation: animate-glitch var(--after-duration, 3s) infinite linear alternate-reverse;
+}
+.glitch:not(.enable-on-hover)::before {
+  text-shadow: var(--before-shadow, 10px 0 cyan);
+  transform: translateX(-4px);
+  animation: animate-glitch var(--before-duration, 2s) infinite linear alternate-reverse;
+}
+
+.glitch-about-heading {
+  cursor: default;
+  display: inline-block;
+  max-width: 100%;
+  font-family: var(--font-outfit, system-ui, sans-serif);
+  font-size: clamp(1.625rem, 3.25vw + 0.85rem, 2.35rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  white-space: normal;
+}
+
+@media (min-width: 640px) {
+  .glitch-about-heading {
+    font-size: clamp(2rem, 2.5vw + 1rem, 2.5rem);
+    line-height: 1.2;
+  }
+}
+
+.glitch-about-heading::before,
+.glitch-about-heading::after {
+  background-color: #0f172a;
+}
+
+/** Same typography/behaviour as About; mask matches Vision `bg-walnut` (Tailwind walnut). */
+.glitch-vision-heading {
+  cursor: default;
+  display: inline-block;
+  max-width: 100%;
+  font-family: var(--font-outfit, system-ui, sans-serif);
+  font-size: clamp(1.625rem, 3.25vw + 0.85rem, 2.35rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  white-space: normal;
+}
+
+@media (min-width: 640px) {
+  .glitch-vision-heading {
+    font-size: clamp(2rem, 2.5vw + 1rem, 2.5rem);
+    line-height: 1.2;
+  }
+}
+
+.glitch-vision-heading::before,
+.glitch-vision-heading::after {
+  background-color: #826633;
+}
+
+.glitch.enable-on-hover::after,
+.glitch.enable-on-hover::before {
+  content: '';
+  opacity: 0;
+  animation: none;
+}
+
+.glitch.enable-on-hover:hover::after {
+  content: attr(data-text);
+  opacity: 1;
+  text-shadow: var(--after-shadow, -10px 0 red);
+  transform: translateX(4px);
+  animation: animate-glitch var(--after-duration, 3s) infinite linear alternate-reverse;
+}
+.glitch.enable-on-hover:hover::before {
+  content: attr(data-text);
+  opacity: 1;
+  text-shadow: var(--before-shadow, 10px 0 cyan);
+  transform: translateX(-4px);
+  animation: animate-glitch var(--before-duration, 2s) infinite linear alternate-reverse;
+}
+
+@keyframes animate-glitch {
+  0% {
+    clip-path: inset(20% 0 50% 0);
+  }
+  5% {
+    clip-path: inset(10% 0 60% 0);
+  }
+  10% {
+    clip-path: inset(15% 0 55% 0);
+  }
+  15% {
+    clip-path: inset(25% 0 35% 0);
+  }
+  20% {
+    clip-path: inset(30% 0 40% 0);
+  }
+  25% {
+    clip-path: inset(40% 0 20% 0);
+  }
+  30% {
+    clip-path: inset(10% 0 60% 0);
+  }
+  35% {
+    clip-path: inset(15% 0 55% 0);
+  }
+  40% {
+    clip-path: inset(25% 0 35% 0);
+  }
+  45% {
+    clip-path: inset(30% 0 40% 0);
+  }
+  50% {
+    clip-path: inset(20% 0 50% 0);
+  }
+  55% {
+    clip-path: inset(10% 0 60% 0);
+  }
+  60% {
+    clip-path: inset(15% 0 55% 0);
+  }
+  65% {
+    clip-path: inset(25% 0 35% 0);
+  }
+  70% {
+    clip-path: inset(30% 0 40% 0);
+  }
+  75% {
+    clip-path: inset(40% 0 20% 0);
+  }
+  80% {
+    clip-path: inset(20% 0 50% 0);
+  }
+  85% {
+    clip-path: inset(10% 0 60% 0);
+  }
+  90% {
+    clip-path: inset(15% 0 55% 0);
+  }
+  95% {
+    clip-path: inset(25% 0 35% 0);
+  }
+  100% {
+    clip-path: inset(30% 0 40% 0);
+  }
+}
