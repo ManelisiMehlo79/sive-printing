@@ -18,7 +18,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView, type BlurViewProps } from "expo-blur";
-import type { FlexiButtonProps } from "./types";
+import type { FlexiButtonProps, IconName } from "./types";
 
 const AnimatedBlurView =
   Animated.createAnimatedComponent<BlurViewProps>(BlurView);
@@ -75,7 +75,7 @@ const FlexiButton: React.FC<FlexiButtonProps> = ({
         ),
       );
       return {
-        // @ts-ignore
+        // @ts-expect-error Reanimated passes an animated value; BlurViewProps types expect a plain number.
         intensity,
       };
     },
@@ -141,7 +141,7 @@ const FlexiButton: React.FC<FlexiButtonProps> = ({
           {typeof icon === "function" ? (
             icon()
           ) : (
-            <Ionicons name={icon as any} size={18} color="#fff" />
+            <Ionicons name={icon as IconName} size={18} color="#fff" />
           )}
         </Animated.View>
         <Animated.View style={[styles.textContainer, animatedTextStyle]}>

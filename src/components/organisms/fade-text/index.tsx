@@ -17,23 +17,22 @@ import type { AnimatedWordProps, FadeTextProps } from "./types";
 const AnimatedBlurView =
   Animated.createAnimatedComponent<BlurViewProps>(BlurView);
 
-export const FadeText: React.FC<FadeTextProps> = memo<FadeTextProps>(
-  ({
-    inputs,
-    wordDelay = 300,
-    duration = 800,
-    blurIntensity = [30, 10, 0],
-    blurTint = "dark",
-    scaleRange = [0.97, 1],
-    translateYRange = [10, 0],
-    opacityRange = [0, 0.5, 1],
-    fontSize = 32,
-    fontWeight = "600",
-    color = "#ffffff",
-    textAlign = "center",
-    containerStyle,
-    style,
-  }: FadeTextProps): React.ReactNode & React.JSX.Element => {
+function FadeTextInner({
+  inputs,
+  wordDelay = 300,
+  duration = 800,
+  blurIntensity = [30, 10, 0],
+  blurTint = "dark",
+  scaleRange = [0.97, 1],
+  translateYRange = [10, 0],
+  opacityRange = [0, 0.5, 1],
+  fontSize = 32,
+  fontWeight = "600",
+  color = "#ffffff",
+  textAlign = "center",
+  containerStyle,
+  style,
+}: FadeTextProps): React.ReactElement {
     const words = inputs.flatMap((text, inputIndex) =>
       text.split(" ").map((word) => ({ word, inputIndex })),
     );
@@ -63,25 +62,28 @@ export const FadeText: React.FC<FadeTextProps> = memo<FadeTextProps>(
         </View>
       </View>
     );
-  },
-);
+}
 
-const AnimatedWord: React.FC<AnimatedWordProps> = memo<AnimatedWordProps>(
-  ({
-    word,
-    delay,
-    duration,
-    blurIntensity,
-    blurTint,
-    scaleRange,
-    translateYRange,
-    opacityRange,
-    fontSize,
-    fontWeight,
-    color,
-    textAlign,
-    style,
-  }: AnimatedWordProps): React.ReactNode & React.JSX.Element => {
+FadeTextInner.displayName = "FadeText";
+
+export const FadeText = memo(FadeTextInner);
+FadeText.displayName = "FadeText";
+
+function AnimatedWordInner({
+  word,
+  delay,
+  duration,
+  blurIntensity,
+  blurTint,
+  scaleRange,
+  translateYRange,
+  opacityRange,
+  fontSize,
+  fontWeight,
+  color,
+  textAlign,
+  style,
+}: AnimatedWordProps): React.ReactElement {
     const animationValue = useSharedValue<number>(0);
 
     useEffect(() => {
@@ -92,7 +94,7 @@ const AnimatedWord: React.FC<AnimatedWordProps> = memo<AnimatedWordProps>(
           easing: Easing.out(Easing.cubic),
         }),
       );
-    }, [delay, duration]);
+    }, [animationValue, delay, duration]);
 
     const animatedStyle = useAnimatedStyle<
       Pick<ViewStyle, "opacity" | "transform">
@@ -164,8 +166,12 @@ const AnimatedWord: React.FC<AnimatedWordProps> = memo<AnimatedWordProps>(
         />
       </Animated.View>
     );
-  },
-);
+}
+
+AnimatedWordInner.displayName = "AnimatedWord";
+
+const AnimatedWord = memo(AnimatedWordInner);
+AnimatedWord.displayName = "AnimatedWord";
 
 const styles = StyleSheet.create({
   container: {

@@ -90,11 +90,14 @@ export function Header() {
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
+    /** Paint-aware initial probe so route colors are correct before first scroll. */
+    scrollRaf.current = window.requestAnimationFrame(run);
+
     return () => {
       window.removeEventListener("scroll", onScroll);
       if (scrollRaf.current) cancelAnimationFrame(scrollRaf.current);
     };
-  }, [open]);
+  }, [open, pathname]);
 
   return (
     <header
@@ -120,7 +123,13 @@ export function Header() {
               <span className={cn(bySiveIsWhite ? "text-white" : "text-ink")}>
                 BySive
               </span>
-              <span className={cn(printingIsWhite ? "text-white" : "text-walnut")}>
+              <span
+                className={cn(
+                  printingIsWhite || pathname === "/contact"
+                    ? "text-white"
+                    : "text-walnut",
+                )}
+              >
                 {" "}
                 Printing Services
               </span>

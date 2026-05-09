@@ -7,49 +7,25 @@ import { TextHoverEffect } from "@/components/ui/text-hover-effect";
 
 const APP_ENTRY_LOADER_MS = 7000;
 
-/** Set after the entry animation finishes once in this tab (full document lifecycle). */
-const ENTRY_DONE_STORAGE_KEY = "bysive-entry-loader-complete";
-
-function shouldShowAppEntryOverlay(): boolean {
-  if (typeof window === "undefined") return true;
-
-  const navEntries = performance.getEntriesByType(
-    "navigation"
-  ) as PerformanceNavigationTiming[];
-  const nav = navEntries[0];
-
-  if (!nav?.type) {
-    return true;
-  }
-
-  if (nav.type === "reload") {
-    try {
-      sessionStorage.removeItem(ENTRY_DONE_STORAGE_KEY);
-    } catch {
-      /* private mode etc. */
-    }
-    return true;
-  }
-
-  if (nav.type === "navigate") {
-    try {
-      if (sessionStorage.getItem(ENTRY_DONE_STORAGE_KEY) === "1") {
-        return false;
-      }
-    } catch {
-      return true;
-    }
-    return true;
-  }
-
-  return false;
-}
+/**
+ * Persisted in this browser only. After the welcome overlay has run once, it never
+ * shows again (reload, /contact, other routes, back/forward) — not tied to navigation type.
+ */
+const FIRST_VISIT_DONE_KEY = "bysive-entry-loader-first-visit-done";
 
 export function AppEntryLoader() {
-  const [visible, setVisible] = useState(shouldShowAppEntryOverlay);
+  /** Start hidden; enable only on first-ever visit after reading localStorage (client-only). */
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    setVisible(shouldShowAppEntryOverlay());
+    try {
+      if (localStorage.getItem(FIRST_VISIT_DONE_KEY) === "1") {
+        return;
+      }
+    } catch {
+      /* storage unavailable — allow one welcome run this session */
+    }
+    setVisible(true);
   }, []);
 
   useEffect(() => {
@@ -57,9 +33,9 @@ export function AppEntryLoader() {
     const timer = window.setTimeout(() => {
       setVisible(false);
       try {
-        sessionStorage.setItem(ENTRY_DONE_STORAGE_KEY, "1");
+        localStorage.setItem(FIRST_VISIT_DONE_KEY, "1");
       } catch {
-        /* ignore */
+        /* private mode: overlay won’t persist; may show again next full load */
       }
     }, APP_ENTRY_LOADER_MS);
 

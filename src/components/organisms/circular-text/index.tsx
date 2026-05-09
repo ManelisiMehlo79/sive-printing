@@ -23,17 +23,16 @@ import Animated, {
 } from "react-native-reanimated";
 import type { CircularTextProps, PressEffect, LetterProps } from "./types";
 
-const Letter = memo<LetterProps>(
-  ({
-    letter,
-    index,
-    totalLetters,
-    radius,
-    fontSize,
-    color,
-    containerSize,
-    fontStyle,
-  }): React.ReactElement => {
+function LetterInner({
+  letter,
+  index,
+  totalLetters,
+  radius,
+  fontSize,
+  color,
+  containerSize,
+  fontStyle,
+}: LetterProps): React.ReactElement {
     const angle: number = (360 / totalLetters) * index - 90;
     const angleRad: number = (angle * Math.PI) / 180;
 
@@ -73,23 +72,24 @@ const Letter = memo<LetterProps>(
         </Text>
       </View>
     );
-  },
-);
+}
 
-export const CircularText: React.FC<CircularTextProps> &
-  React.FunctionComponent<CircularTextProps> = memo<CircularTextProps>(
-  ({
-    text,
-    spinDuration = 20,
-    pressEffect = "speedUp",
-    radius = 85,
-    fontSize = 24,
-    color = "#ffffff",
-    style,
-    fontStyle,
-  }: CircularTextProps):
-    | (React.ReactElement & React.ReactNode & React.ReactElement)
-    | null => {
+LetterInner.displayName = "Letter";
+
+const Letter = memo(LetterInner);
+
+function CircularTextInner({
+  text,
+  spinDuration = 20,
+  pressEffect = "speedUp",
+  radius = 85,
+  fontSize = 24,
+  color = "#ffffff",
+  style,
+  fontStyle,
+}: CircularTextProps):
+  | (React.ReactElement & React.ReactNode & React.ReactElement)
+  | null {
     const letters: readonly string[] = Array.from(text);
     const rotation: SharedValue<number> = useSharedValue<number>(0);
     const scale: SharedValue<number> = useSharedValue<number>(1);
@@ -194,10 +194,13 @@ export const CircularText: React.FC<CircularTextProps> &
         </Animated.View>
       </Pressable>
     );
-  },
-);
+}
 
-export default memo<CircularTextProps>(CircularText);
+CircularTextInner.displayName = "CircularText";
+
+export const CircularText = memo(CircularTextInner);
+
+export default CircularText;
 
 const styles = StyleSheet.create({
   container: {

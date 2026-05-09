@@ -7,6 +7,7 @@ import SplashCursor from "@/components/SplashCursor";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { AppEntryLoader } from "@/components/AppEntryLoader";
+import { NavigationTopLoader } from "@/components/NavigationTopLoader";
 
 const SITE_NAME = "BySive Printing Services";
 const SITE_TITLE_DEFAULT = `${SITE_NAME} | Professional Document Printing`;
@@ -79,6 +80,7 @@ export default function RootLayout({
         )}
       >
         <AppEntryLoader />
+        <NavigationTopLoader />
         <SiteBackgroundVideo />
         <div className="relative z-10 flex min-h-[100dvh] flex-1 flex-col">
           <Header />

@@ -7,7 +7,7 @@ interface Dimensions {
   y: number;
 }
 
-type IconName = keyof typeof Ionicons.glyphMap;
+export type IconName = keyof typeof Ionicons.glyphMap;
 type IconRenderFn = () => JSX.Element & React.ReactNode;
 
 interface FlexiButtonProps {

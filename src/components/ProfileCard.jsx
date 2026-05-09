@@ -26,8 +26,8 @@ const adjust = (v, fMin, fMax, tMin, tMax) => round(tMin + ((tMax - tMin) * (v -
 
 const ProfileCardComponent = ({
   avatarUrl,
-  iconUrl,
-  grainUrl,
+  iconUrl = '',
+  grainUrl = '',
   innerGradient,
   behindGlowEnabled = true,
   behindGlowColor,
@@ -47,7 +47,7 @@ const ProfileCardComponent = ({
   showUserInfo = true,
   /** When set, contact control is an anchor (avoids needing a handler from Server Components). */
   contactHref,
-  onContactClick
+  onContactClick = undefined
 }) => {
   const wrapRef = useRef(null);
   const shellRef = useRef(null);

@@ -24,6 +24,8 @@ export function LogoMarkCircle({ outerPx, logoSrc }: LogoMarkCircleProps) {
         boxShadow: `0 0 0 ${ring}px rgb(15 23 42 / 0.1), 0 1px 2px rgb(0 0 0 / 0.06)`,
       }}
     >
+      {/* Satori (next/og ImageResponse) only supports native <img>; next/image is not valid here. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={logoSrc}
         alt=""

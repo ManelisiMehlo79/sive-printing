@@ -1,9 +1,5 @@
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
-import { SITE_LOGO_FILE } from "@/lib/site";
-
-/** Base64 data URL for embedding in `next/og` ImageResponse (Node runtime). */
-export async function readSiteLogoDataUri(): Promise<string> {
-  const buf = await readFile(join(process.cwd(), "public", SITE_LOGO_FILE));
-  return `data:image/png;base64,${buf.toString("base64")}`;
-}
+/**
+ * Alias for OG / Node helpers. Prefer `loadSiteLogoDataUrl` from `site-logo-data-url.ts` in new code.
+ * @deprecated Use `loadSiteLogoDataUrl` from `@/lib/site-logo-data-url` instead.
+ */
+export { loadSiteLogoDataUrl as readSiteLogoDataUri } from "@/lib/site-logo-data-url";

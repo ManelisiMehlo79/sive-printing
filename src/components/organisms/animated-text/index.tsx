@@ -28,19 +28,16 @@ import {
 const AnimatedBlurView =
   Animated.createAnimatedComponent<BlurViewProps>(BlurView);
 
-const Character: React.FC<CharacterProps> = memo<CharacterProps>(
-  ({
-    char,
-    style,
-    index,
-    animationConfig,
-    enterFrom,
-    enterTo,
-    exitFrom,
-    exitTo,
-  }: CharacterProps): React.ReactNode &
-    React.JSX.Element &
-    React.ReactElement => {
+function CharacterInner({
+  char,
+  style,
+  index,
+  animationConfig,
+  enterFrom,
+  enterTo,
+  exitFrom,
+  exitTo,
+}: CharacterProps): React.ReactElement {
     const enterDelay = index * animationConfig.characterDelay;
     const exitDelay = index * (animationConfig.characterDelay * 0.5);
 
@@ -182,22 +179,21 @@ const Character: React.FC<CharacterProps> = memo<CharacterProps>(
         />
       </Animated.View>
     );
-  },
-);
+}
 
-export const StaggeredText: React.FC<StaggeredTextProps> =
-  memo<StaggeredTextProps>(
-    ({
-      text,
-      style,
-      animationConfig,
-      enterFrom,
-      enterTo,
-      exitFrom,
-      exitTo,
-    }: StaggeredTextProps): React.ReactNode &
-      React.JSX.Element &
-      React.ReactElement => {
+CharacterInner.displayName = "Character";
+
+const Character = memo(CharacterInner);
+
+function StaggeredTextInner({
+  text,
+  style,
+  animationConfig,
+  enterFrom,
+  enterTo,
+  exitFrom,
+  exitTo,
+}: StaggeredTextProps): React.ReactElement {
       const characters = Array.from<string>(text);
 
       const mergedAnimationConfig: AnimationConfig = {
@@ -254,10 +250,13 @@ export const StaggeredText: React.FC<StaggeredTextProps> =
           )}
         </Animated.View>
       );
-    },
-  );
+}
 
-export default memo<StaggeredTextProps>(StaggeredText);
+StaggeredTextInner.displayName = "StaggeredText";
+
+export const StaggeredText = memo(StaggeredTextInner);
+
+export default StaggeredText;
 
 const styles = StyleSheet.create({
   textWrapper: {
