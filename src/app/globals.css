@@ -126,6 +126,86 @@
   }
 }
 
+/**
+ * Section titles (BlurText): DM Sans — sturdy and readable next to body copy,
+ * distinct from nav/hero Outfit (`font-display`).
+ *
+ * Per-word “frame” stroke matches hero ScrollVelocity: white fill, paint-order
+ * stroke-under-fill, odd words ink stroke / even words walnut stroke.
+ * Depth uses text-shadow so it does not clash with Motion `filter` blur on spans.
+ */
+.blur-section-heading {
+  cursor: default;
+  max-width: 100%;
+  width: 100%;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: clamp(1.625rem, 3.25vw + 0.85rem, 2.35rem);
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: -0.045em;
+  line-height: 1.18;
+  white-space: normal;
+}
+
+.blur-section-heading > span {
+  color: #fff;
+  paint-order: stroke fill;
+  text-shadow:
+    0 3px 18px rgb(0 0 0 / 0.48),
+    0 1px 6px rgb(0 0 0 / 0.42);
+}
+
+/* Vision / Contact: odd = ink, even = walnut */
+.blur-section-heading > span:nth-child(odd) {
+  -webkit-text-stroke: 1px rgb(15 23 42);
+}
+
+.blur-section-heading > span:nth-child(even) {
+  -webkit-text-stroke: 1px rgb(130 102 51);
+}
+
+/* About / Testimonials: all words use walnut brown */
+.blur-section-heading--walnut > span:nth-child(odd),
+.blur-section-heading--walnut > span:nth-child(even) {
+  -webkit-text-stroke: 1px rgb(130 102 51);
+}
+
+@media (min-width: 640px) {
+  .blur-section-heading {
+    font-size: clamp(2rem, 2.5vw + 1rem, 2.5rem);
+    line-height: 1.14;
+    letter-spacing: -0.04em;
+  }
+
+  .blur-section-heading > span:nth-child(odd) {
+    -webkit-text-stroke: 1.2px rgb(15 23 42);
+  }
+
+  .blur-section-heading > span:nth-child(even) {
+    -webkit-text-stroke: 1.2px rgb(130 102 51);
+  }
+
+  .blur-section-heading--walnut > span:nth-child(odd),
+  .blur-section-heading--walnut > span:nth-child(even) {
+    -webkit-text-stroke: 1.2px rgb(130 102 51);
+  }
+}
+
+@media (min-width: 768px) {
+  .blur-section-heading > span:nth-child(odd) {
+    -webkit-text-stroke: 1.35px rgb(15 23 42);
+  }
+
+  .blur-section-heading > span:nth-child(even) {
+    -webkit-text-stroke: 1.35px rgb(130 102 51);
+  }
+
+  .blur-section-heading--walnut > span:nth-child(odd),
+  .blur-section-heading--walnut > span:nth-child(even) {
+    -webkit-text-stroke: 1.35px rgb(130 102 51);
+  }
+}
+
 .contact-card-enter {
   opacity: 0;
   will-change: transform, opacity;

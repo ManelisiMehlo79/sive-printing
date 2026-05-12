@@ -39,6 +39,8 @@ export function CircularTextRing({
 }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [radius, setRadius] = useState(96);
+  /** False on server + first client paint — avoids SSR vs client float drift in `transform`. */
+  const [layoutReady, setLayoutReady] = useState(false);
   const ringText = useMemo(() => ringTextWithWordDiamonds(text), [text]);
   const letters = useMemo(() => Array.from(ringText), [ringText]);
 
@@ -68,6 +70,7 @@ export function CircularTextRing({
     mq.addEventListener("change", onMq);
     const ro = new ResizeObserver(update);
     ro.observe(el);
+    setLayoutReady(true);
 
     return () => {
       mq.removeEventListener("change", onMq);
@@ -93,17 +96,25 @@ export function CircularTextRing({
         {letters.map((letter, i) => {
           const angleDeg = (360 / letters.length) * i - 90;
           const rad = (angleDeg * Math.PI) / 180;
-          const x = radius * Math.cos(rad);
-          const y = radius * Math.sin(rad);
-          const letterRot = angleDeg + 90;
+          const x = Math.round(radius * Math.cos(rad));
+          const y = Math.round(radius * Math.sin(rad));
+          const letterRot = Math.round((angleDeg + 90) * 1000) / 1000;
 
           return (
             <span
               key={`${i}-${letter}`}
               className="absolute left-1/2 top-1/2 select-none font-display text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-white [text-shadow:0_1px_10px_rgb(0_0_0/0.9),0_0_1px_rgb(255_255_255/0.35)] max-sm:text-[0.72rem] sm:text-[0.74rem] md:text-[0.82rem] lg:text-[1.02rem] xl:text-[1.12rem] 2xl:text-[1.2rem]"
-              style={{
-                transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(${letterRot}deg)`,
-              }}
+              style={
+                layoutReady
+                  ? {
+                      opacity: 1,
+                      transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(${letterRot}deg)`,
+                    }
+                  : {
+                      opacity: 0,
+                      transform: "translate(-50%, -50%)",
+                    }
+              }
             >
               {letter === " " ? "\u00A0" : letter}
             </span>

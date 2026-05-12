@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { useCallback, useState } from "react";
 import DecryptedText from "@/components/DecryptedText";
-import GlitchText from "@/components/GlitchText";
+import BlurText from "@/components/BlurText";
 import { TestimonialsFooterDivider } from "@/components/TestimonialsFooterDivider";
 
 const CircularGallery = dynamic(() => import("@/components/CircularGallery"), {
@@ -84,14 +84,11 @@ export function Testimonials() {
             <p className="text-sm font-semibold uppercase tracking-widest text-brand-light">
               Testimonials
             </p>
-            <h2 className="mt-2 font-display tracking-tight text-white">
-              <GlitchText
-                enableOnHover={false}
-                speed={0.9}
-                className="glitch-about-heading text-white"
-              >
-                What we&apos;ve been trusted to produce
-              </GlitchText>
+            <h2 className="mt-2 text-white">
+              <BlurText
+                text="What we've been trusted to produce"
+                className="blur-section-heading blur-section-heading--walnut justify-center text-white"
+              />
             </h2>
             <p className="mx-auto mt-3 max-w-2xl break-words text-center text-lg leading-relaxed [overflow-wrap:anywhere]">
               <DecryptedText

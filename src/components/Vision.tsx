@@ -1,6 +1,6 @@
- "use client";
+"use client";
 
-import GlitchText from "@/components/GlitchText";
+import BlurText from "@/components/BlurText";
 import DecryptedText from "@/components/DecryptedText";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { VisionContactDivider } from "@/components/VisionContactDivider";
@@ -155,14 +155,11 @@ export function Vision() {
           <p className="text-sm font-semibold uppercase tracking-widest text-ink">
             Our vision
           </p>
-          <h2 className="mt-2 font-display tracking-tight text-white">
-            <GlitchText
-              enableOnHover={false}
-              speed={0.9}
-              className="glitch-vision-heading text-white"
-            >
-              Dependable prints and delivery—for every neighbourhood we serve.
-            </GlitchText>
+          <h2 className="mt-2 text-white">
+            <BlurText
+              text="Dependable prints and delivery—for every neighbourhood we serve."
+              className="blur-section-heading justify-center text-white"
+            />
           </h2>
           <p className="mx-auto mt-6 max-w-2xl break-words text-lg leading-relaxed [overflow-wrap:anywhere]">
             <DecryptedText

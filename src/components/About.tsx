@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import ProfileCard from "@/components/ProfileCard";
 import { SITE_LOGO_SRC } from "@/components/CircularBrandLogo";
 import { SITE_EMAIL } from "@/lib/site-brand";
-import GlitchText from "@/components/GlitchText";
+import BlurText from "@/components/BlurText";
 import DecryptedText from "@/components/DecryptedText";
 
 const PROFILE_IMAGE_SRC = "/sive.jpeg";
@@ -72,14 +72,11 @@ export function About() {
       <div className="min-w-0 overflow-x-hidden">
         <div className="relative z-[1] mx-auto max-w-6xl min-w-0 px-4 pb-8 pt-6 sm:px-6 sm:pb-20 sm:pt-7 lg:px-8 lg:pb-6 lg:pt-8">
           <div className="mx-auto max-w-3xl -translate-y-4 text-center sm:-translate-y-5 lg:-translate-y-6">
-            <h2 className="font-display tracking-tight text-white">
-              <GlitchText
-                enableOnHover={false}
-                speed={0.9}
-                className="glitch-about-heading text-white"
-              >
-                About BySive Printing Services
-              </GlitchText>
+            <h2 className="text-white">
+              <BlurText
+                text="About BySive Printing Services"
+                className="blur-section-heading blur-section-heading--walnut justify-center text-white"
+              />
             </h2>
             <p className="mx-auto mt-4 max-w-2xl break-words text-center text-lg leading-relaxed [overflow-wrap:anywhere]">
               <DecryptedText

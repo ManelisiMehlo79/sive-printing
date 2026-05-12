@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import DecryptedText from "@/components/DecryptedText";
-import GlitchText from "@/components/GlitchText";
+import BlurText from "@/components/BlurText";
 import {
   SITE_CONTACT_MAILTO,
   SITE_EMAIL,
@@ -63,14 +63,11 @@ export default function ContactPage() {
         <p className="text-center text-sm font-semibold uppercase tracking-[0.2em] text-sky-200/90">
           Contact us
         </p>
-        <h1 className="mt-2 text-center font-display tracking-tight text-white">
-          <GlitchText
-            enableOnHover={false}
-            speed={0.9}
-            className="glitch-vision-heading text-white"
-          >
-            Reach us the way that suits you
-          </GlitchText>
+        <h1 className="mt-2 text-center text-white">
+          <BlurText
+            text="Reach us the way that suits you"
+            className="blur-section-heading justify-center text-white"
+          />
         </h1>
         <p className="mx-auto mt-4 max-w-2xl break-words text-center text-lg leading-relaxed [overflow-wrap:anywhere]">
           <DecryptedText
